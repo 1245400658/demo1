@@ -1,0 +1,25 @@
+{
+    "code": 0,
+    "msg": "success",
+    "data": [
+        {
+            "grade_ID": "1",
+            "gender": "男",
+            "students_ID": null,
+            "students_NAME": null
+        },
+        {
+            "grade_ID": "2",
+            "gender": "女",
+            "students_ID": null,
+            "students_NAME": null
+        },
+        {
+            "grade_ID": "2",
+            "gender": "男",
+            "students_ID": null,
+            "students_NAME": null
+        }
+    ],
+    "count": 1000
+}

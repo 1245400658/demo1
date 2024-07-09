@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>表格Demo</title>
+    <link rel="stylesheet" href="./layui/css/layui.css" media="all">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+<style>
+    html,
+    body {
+        height: 100%;
+        /* 设置html和body的高度为100% */
+        margin: 0;
+        /* 移除默认的外边距 */
+        padding: 0;
+        /* 移除默认的内边距 */
+    }
+
+    .search-input {
+        width: 500px;
+        height: 30px;
+        padding: 5px 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .search-btn {
+        width: 100px;
+        height: 42px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #009688;
+        color: #fff;
+        cursor: pointer;
+    }
+</style>
+
+<div class="layui-input-block">
+    <input type="text" class="search-input" placeholder="请输入搜索内容">
+    <button class="search-btn">搜索</button>
+</div>
+
+<style>
+    .layui-table-container {
+        margin: 0 auto;
+        /* 自动水平居中 */
+    }
+</style>
+
+<table id="demo" lay-filter="test"></table>
+<script src="./layui/layui.js"></script>
+
+<!-- 表格操作按钮 -->
+<script type="text/html" id="operate-button">
+
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+
+</script>
+<div style="margin-top: 15px"></div>
+
+<script>
+    layui.use('table', function () {
+        var table = layui.table;
+        //第一个实例
+        table.render({
+            elem: '#demo',
+            height: 450,
+            url: '/api/depts' //数据
+            ,
+            page: true //开启分页
+            ,
+            pagesize: 10 //每页显示的条数
+            ,
+            limit: 10 //每页显示的条数
+            ,
+            cols: [
+                [ //表头
+                    {field: 'id', title: 'id', width:120, sort: true, fixed: 'left'}
+                    ,{field: 'name', title: '姓名', width:120}
+                    ,{field: 'age', title: '年龄', width:120, sort: true}
+                    ,{field: 'gender', title: '性别', width:120}, {
+                    fixed: 'right',
+                    title: '操作',
+                    width: 250,
+                    minWidth: 125,
+                    toolbar: '#operate-button'
+                }
+                ]
+            ]
+        });
+
+        // 监听工具条
+        table.on('tool(test)', function (obj) {
+            var data = obj.data; // 获取当前行数据
+            var layEvent = obj.event; // 获取 lay-event 对应的值
+
+            if (layEvent === 'edit') {
+                // 编辑按钮事件
+                layer.msg('编辑行 ID：' + data.id);
+            } else if (layEvent === 'del') {
+                // 删除按钮事件
+
+                var id;
+                if (typeof data.id === 'string') {
+                    id = data.id.match(/\d+/)[0];
+                } else if (typeof data.id === 'number') {
+                    id = String(data.id).match(/\d+/)[0];
+                } else if (data.id && typeof data.id.value === 'string') {
+                    id = data.id.value.match(/\d+/)[0];
+                } else {
+                    throw new Error('Invalid data.id format');
+                }
+
+                layer.confirm('确定删除行 ID：' + data.id + ' 吗？', function (index) {
+                    obj.del();
+                    var url = '/api/depts/' + id;
+                    $.ajax({
+                        url: url,
+                        type: 'delete',
+                        data: {
+                            id: data.id
+                        },
+                        success: function (res) {
+                            if (res.code === 0) {
+                                layer.msg('删除成功');
+                            } else {
+                                layer.msg('删除失败');
+                            }
+                        }
+                    });
+                });
+            } else if (layEvent === 'more') {
+                layer.msg('更多操作行 ID：' + data.id);
+            }
+        });
+    });
+</script>
+</body>
+
+</html>
