@@ -53,6 +53,19 @@ public class DeptController {
         deptService.delete(id);
         return Result.success();
     }
+    ////
+//
+//    /**
+//     * 新增部门
+//     * @return
+//     */
+    @PostMapping("/add")
+    public Result add(@RequestBody Dept dept){
+        log.info("新增部门: {}" , dept);
+        //调用service新增部门
+        deptService.add(dept);
+        return Result.success();
+    }
 
 
 }
