@@ -8,6 +8,7 @@ package org.example.mapper;//package com.itheima.mapper;
 //import org.apache.ibatis.annotations.Select;
 
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.example.pojo.Dept;
@@ -37,4 +38,11 @@ public interface DeptMapper {
      */
     @Select("delete from STUDENT where ID = #{id}")
     void delete(Integer id);
+
+    //    /**
+//     * 新增部门
+//     * @param dept
+//     */
+    @Insert("insert into STUDENT values(#{ID},#{name},#{age},#{gender})")
+    void insert(Dept dept);
 }

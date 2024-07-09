@@ -2,20 +2,23 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="ShitGPT (2)" />
+        <module name="ShitGPT" />
         <module name="ShitGPT (1)" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ShitGPT (2)" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ShitGPT" options="-parameters" />
       <module name="ShitGPT (1)" options="-parameters" />
-      <module name="ShitGPT (2)" options="-parameters" />
     </option>
   </component>
 </project>

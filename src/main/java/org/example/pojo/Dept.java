@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Dept {
-    private Integer id; //ID
+    private Integer ID; //ID
     private String name; //名称
     private String age;
     private String gender;
